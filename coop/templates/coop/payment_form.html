@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load my_custom_tags %}
+
+{% block page_content %}
+
+<div class="uk-width-medium-8-10 uk-container-center reset-print">
+<div class="uk-width-large-7-10 uk-row-first">
+<div class="md-card md-card-single main-print" id="invoice" style="opacity: 1; transform: scale(1);">
+    <div id="invoice_preview">
+        <div class="md-card-toolbar">
+            <div class="md-card-toolbar-actions hidden-print">
+                <i class="md-icon material-icons" id="invoice_print"></i>
+                <div class="md-card-dropdown" data-uk-dropdown="{pos:'bottom-right'}">
+                    <i class="md-icon material-icons"></i>
+                    <div class="uk-dropdown uk-dropdown-small">
+                        <ul class="uk-nav">
+                            <!--<li><a href="#">Archive</a></li>-->
+                            <!--<li><a href="#" class="uk-text-danger">Remove</a></li>-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <h3 class="md-card-toolbar-heading-text large" id="invoice_name">
+                Order Payment
+            </h3>
+        </div>
+        <div class="md-card-content" style="">
+
+            <div class="uk-grid uk-margin-large-bottom">
+                <div class="uk-width-1-1">
+                    <table class="uk-table">
+                        <thead>
+                            <tr class="uk-text-upper">
+                                <th>Order Reference: </th><th>{{ object.order_reference}}</th>
+                            </tr>
+                             <tr class="uk-text-upper">
+                                <th>Order Amount: </th><th>{{ object.order_price|intcomma }}</th>
+                            </tr>
+                             <tr class="uk-text-upper">
+                                <th>Order Owner: </th><th>{{ object.member.first_name }} {{ object.member.last_name }}</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <form method="POST" class="new-event-form" role="role" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% include "error_template.html" with form=form %}
+                        <div class="uk-grid" data-uk-grid-margin>
+                            <div class="uk-width-medium-1-2">
+                                {% include "form/field.html" with field=form.phone_number input_group_add_on='<i class="uk-input-group-icon uk-icon-map-o"></i>' %}
+                            </div>
+                        </div>
+                        <div class="uk-grid">
+                            <div class="uk-width-1-1">
+                                <button type="submit" class="md-btn md-btn-success">Process</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="invoice_form"></div>
+</div>
+</div>
+
+</div>
+
+
+
+{% endblock %}

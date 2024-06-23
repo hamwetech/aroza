@@ -1,0 +1,28 @@
+01. Install virtualbox and vagrant(vagrantup.com) for windows
+02. A box is a minified linux image. Run this light box:
+- "vagrant box add ubuntu/xenial64"
+- "mkdir E:\code\vagrant\project_name"
+- "cd code\vagrant\ftf"
+- "vagrant init ubuntu/xenial64"
+03. A config file is created, so cat or vi to edit it
+04. uncomment private_network line to
+- config.vm.network "private_network", ip: "192.168.33.10"
+05. uncomment the ../data line and set it as:
+- config.vm.synced_folder "E:/code/backend/ftf", "/home/vagrant/ftf"
+- That literally makes it the root
+06. Save and run "vagrant reload" to load up the new changes (if machine was running)
+07. Run "vagrant up" to power up the machine
+08. Optional Linux Run "hostnamectl" to see details
+09. Run "vagrant ssh" to gain access
+10. Run "sudo su"
+11. Follow this (https://www.liquidweb.com/kb/how-to-install-pyenv-on-ubuntu-18-04/) for python
+
+Install virtualenv:
+===================
+01. Run "git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv"
+02. Run "echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc"
+03. Run "exec "$SHELL""
+04. Run "pyenv virtualenv 2.7.18 venv"
+05. Run "sudo apt install nginx -y" and "service nginx status" to check if it's running
+06. Run "pyenv activate venv" or simply "source venv/Scripts/activate"
+07. Run "python manage.py runserver 0.0.0.0:8000"

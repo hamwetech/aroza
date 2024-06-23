@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load my_custom_tags %} 
+
+{% block style %}
+    <!-- additional styles for plugins -->
+    <!-- kendo UI -->
+    <link rel="stylesheet" href="{% static 'bower_components/kendo-ui/styles/kendo.common-material.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'bower_components/kendo-ui/styles/kendo.material.min.css' %}"/>
+    
+{% endblock %}
+{% block page_content %}
+<h3 class="heading_b uk-margin-bottom">Cooperative Upload</h3>
+   <div class="md-card">
+        <div class="md-card-content">
+            <form method="POST" class="new-event-form" role="role" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if error %}<div class="uk-alert uk-alert-danger" data-uk-alert="">{{ error.errors }}<div>{{ error }}</div> </div>{% endif %}
+                
+                {% include "error_template.html" with form=form %}
+                 {% for field in form %}
+                     <div class="uk-width-medium-1-2" >
+                        {% include "form/field.html" with field=field input_group_add_on='<i class="uk-input-group-icon uk-icon-institution "></i>' %}
+                     </div>
+                    {% endfor %}
+                <div class="uk-grid">
+                    <div class="uk-width-1-1">
+                        <button type="submit" class="md-btn md-btn-success">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
